@@ -1,8 +1,7 @@
-use aoc_utils::read_file;
 use std::env;
 use std::process;
 
-static PATH_PREFIX: &str = "data/";
+mod days;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -12,18 +11,16 @@ fn main() {
         process::exit(1);
     }
 
-    let file_name = &args[1];
-
-    let file_path = format!("./{}{}.txt", PATH_PREFIX, file_name);
-
-    match read_file(&file_path) {
-        Ok(lines) => {
-            for line in lines {
-                println!("{:?}", line);
-            }
+    let day_name: &str = &args[1];
+    match day_name {
+        "day1" => {
+            days::day1::part1();
+            days::day1::part2();
         }
-        Err(_) => {
-            eprintln!("Could not find file: {:?}", file_path);
+        "day2" => {
+            days::day2::part1();
+            days::day2::part2();
         }
+        _ => eprintln!("{:?} has not been implemented", day_name),
     }
 }
