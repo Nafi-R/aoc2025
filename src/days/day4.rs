@@ -1,4 +1,4 @@
-use aoc_utils::get_day_lines;
+use utils::get_day_lines;
 
 static DIRECTIONS: [(i32, i32); 8] = [
     (-1, 1),

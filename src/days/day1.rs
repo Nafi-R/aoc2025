@@ -1,4 +1,4 @@
-use aoc_utils::get_day_lines;
+use utils::get_day_lines;
 
 pub fn part1() {
     let file_lines = match get_day_lines("day1") {
