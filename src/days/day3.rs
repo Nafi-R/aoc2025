@@ -1,7 +1,12 @@
 use aoc_utils::get_day_lines;
 
 pub fn part1() {
-    let file_lines: Vec<String> = get_day_lines("day3");
+    let file_lines = match get_day_lines("day3") {
+        Some(file_lines) => file_lines,
+        None => {
+            return;
+        }
+    };
     let mut answer: u64 = 0;
     for line in file_lines {
         match get_largest_subsequence(&line, 2) {
@@ -16,7 +21,12 @@ pub fn part1() {
 }
 
 pub fn part2() {
-    let file_lines: Vec<String> = get_day_lines("day3");
+    let file_lines = match get_day_lines("day3") {
+        Some(file_lines) => file_lines,
+        None => {
+            return;
+        }
+    };
     let mut answer: u64 = 0;
 
     for line in file_lines {

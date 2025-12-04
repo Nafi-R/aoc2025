@@ -1,9 +1,14 @@
 use aoc_utils::get_day_lines;
 
 pub fn part1() {
-    let file_lines: Vec<String> = get_day_lines("day2");
+    let mut file_lines = match get_day_lines("day2") {
+        Some(file_lines) => file_lines,
+        None => {
+            return;
+        }
+    };
     let mut answer: i128 = 0;
-    let line = if let Some(contents) = file_lines.get(0) {
+    let line = if let Some(contents) = file_lines.next() {
         contents
     } else {
         eprintln!("No line found in day2.txt");
@@ -46,9 +51,14 @@ pub fn part1() {
 }
 
 pub fn part2() {
-    let file_lines: Vec<String> = get_day_lines("day2");
+    let mut file_lines = match get_day_lines("day2") {
+        Some(file_lines) => file_lines,
+        None => {
+            return;
+        }
+    };
     let mut answer: i128 = 0;
-    let line = if let Some(contents) = file_lines.get(0) {
+    let line = if let Some(contents) = file_lines.next() {
         contents
     } else {
         eprintln!("No line found in day2.txt");
