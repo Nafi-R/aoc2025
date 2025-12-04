@@ -6,7 +6,7 @@ This repository contains my solutions for [Advent of Code 2025](https://adventof
 
 - Each day's solution is located in `src/days/dayN.rs`, where `N` is the day number.
 - The main entry point is in `src/main.rs`.
-- Utility modules and shared code are in `aoc_utils/`.
+- Utility modules and shared code are in `src/utils/`.
 
 ## Running Solutions
 
