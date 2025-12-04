@@ -25,6 +25,10 @@ fn main() {
             days::day3::part1();
             days::day3::part2();
         }
+        "day4" => {
+            days::day4::part1();
+            days::day4::part2();
+        }
         _ => eprintln!("{:?} has not been implemented", day_name),
     }
 }
