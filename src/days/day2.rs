@@ -25,7 +25,7 @@ pub fn part1() {
             let right = right_str.parse::<i64>();
             match (left, right) {
                 (Ok(left), Ok(right)) => (left, right),
-                (Err(_), Ok(_)) | (Ok(_), Err(_)) | (Err(_), Err(_)) => {
+                _ => {
                     eprintln!(
                         "Error parsing line {}: '{}'. At least one value not a number",
                         i, entry
@@ -75,7 +75,7 @@ pub fn part2() {
             let right = right_str.parse::<i64>();
             match (left, right) {
                 (Ok(left), Ok(right)) => (left, right),
-                (Err(_), Ok(_)) | (Ok(_), Err(_)) | (Err(_), Err(_)) => {
+                _ => {
                     eprintln!(
                         "Error parsing line {}: '{}'. At least one value not a number",
                         i, entry
