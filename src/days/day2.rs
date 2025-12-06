@@ -1,12 +1,5 @@
-use utils::get_day_lines;
-
-pub fn part1() -> Option<i64> {
-    let mut file_lines = match get_day_lines("day2") {
-        Some(file_lines) => file_lines,
-        None => {
-            return None;
-        }
-    };
+pub fn part1(file_lines: impl Iterator<Item = String>) -> Option<i64> {
+    let mut file_lines = file_lines;
     let mut answer: i64 = 0;
     let line = if let Some(contents) = file_lines.next() {
         contents
@@ -50,19 +43,14 @@ pub fn part1() -> Option<i64> {
     Some(answer)
 }
 
-pub fn part2() {
-    let mut file_lines = match get_day_lines("day2") {
-        Some(file_lines) => file_lines,
-        None => {
-            return;
-        }
-    };
-    let mut answer: i128 = 0;
+pub fn part2(file_lines: impl Iterator<Item = String>) -> Option<i64> {
+    let mut file_lines = file_lines;
+    let mut answer: i64 = 0;
     let line = if let Some(contents) = file_lines.next() {
         contents
     } else {
         eprintln!("No line found in day2.txt");
-        return;
+        return None;
     };
 
     let entries: Vec<&str> = line.split(",").collect();
@@ -80,12 +68,12 @@ pub fn part2() {
                         "Error parsing line {}: '{}'. At least one value not a number",
                         i, entry
                     );
-                    return;
+                    return None;
                 }
             }
         } else {
             eprintln!("Error parsing line {} : '{}'. No '-' given.", i, entry);
-            return;
+            return None;
         };
 
         for num in start..(end + 1) {
@@ -95,7 +83,7 @@ pub fn part2() {
                 if len % (i + 1) == 0 {
                     let reps = len / (i + 1);
                     if &num_str[..i + 1].repeat(reps) == &num_str {
-                        answer += i128::from(num);
+                        answer += num;
                         break;
                     }
                 }
@@ -103,5 +91,48 @@ pub fn part2() {
         }
     }
 
-    println!("Day2 Part 2 answer: {:?}", answer);
+    Some(answer)
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use utils::get_day_lines;
+    static DAY_STR: &str = "day2";
+
+    #[test]
+    fn test_day2_part1_example_input() {
+        let file_path = format!("{}{}", DAY_STR, "_test");
+        let file_lines = get_day_lines(&file_path).unwrap();
+        let actual = part1(file_lines).unwrap();
+        let expected = 1227775554;
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn test_day2_part1_full_input() {
+        let file_path = format!("{}", DAY_STR);
+        let file_lines = get_day_lines(&file_path).unwrap();
+        let actual = part1(file_lines).unwrap();
+        let expected = 15873079081;
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn test_day2_part2_example_input() {
+        let file_path = format!("{}{}", DAY_STR, "_test");
+        let file_lines = get_day_lines(&file_path).unwrap();
+        let actual = part2(file_lines).unwrap();
+        let expected = 4174379265;
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn test_day2_part2_full_input() {
+        let file_path = format!("{}", DAY_STR);
+        let file_lines = get_day_lines(&file_path).unwrap();
+        let actual = part2(file_lines).unwrap();
+        let expected = 22617871034;
+        assert_eq!(expected, actual);
+    }
 }

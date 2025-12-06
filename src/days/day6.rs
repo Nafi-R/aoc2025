@@ -1,13 +1,4 @@
-use utils::get_day_lines;
-
-pub fn part1() {
-    let file_lines = match get_day_lines("day6") {
-        Some(file_lines) => file_lines,
-        None => {
-            return;
-        }
-    };
-
+pub fn part1(file_lines: impl Iterator<Item = String>) -> Option<i64> {
     let mut lines: Vec<String> = file_lines.collect();
 
     let operations: Vec<String> = match lines.pop() {
@@ -20,7 +11,7 @@ pub fn part1() {
             .collect(),
         None => {
             eprintln!("Error no lines provided...");
-            return;
+            return None;
         }
     };
 
@@ -48,7 +39,7 @@ pub fn part1() {
             "+" => 0,
             _ => {
                 eprintln!("Error unsupported operation: '{}'", operations[col]);
-                return;
+                return None;
             }
         };
         for row in 0..rows {
@@ -57,43 +48,31 @@ pub fn part1() {
                 "+" => col_answer += numbers[row][col],
                 _ => {
                     eprintln!("Error unsupported operation: '{}'", operations[col]);
-                    return;
+                    return None;
                 }
             };
         }
         answer += col_answer;
     }
 
-    println!("Day6 Part 1 answer: {:?}", answer);
+    Some(answer)
 }
 
-pub fn part2() {
-    let file_lines = match get_day_lines("day6") {
-        Some(file_lines) => file_lines,
-        None => {
-            return;
-        }
-    };
-
+pub fn part2(file_lines: impl Iterator<Item = String>) -> Option<i64> {
     let mut lines: Vec<String> = file_lines.collect();
 
     let operations: String = match lines.pop() {
         Some(line) => line,
         None => {
             eprintln!("Error no lines provided...");
-            return;
+            return None;
         }
     };
 
-    // The key change for Part 2 is to process the input column-by-column,
-    // where each column forms a number. To do this reliably, we must
-    // parse the input by character position, not by splitting on spaces.
-
-    // 1. Determine the width of the input (all rows must be padded to the same width)
     let max_len = lines.iter().map(|l| l.len()).max().unwrap_or(0);
     if max_len == 0 {
         eprintln!("Empty input!");
-        return;
+        return None;
     }
 
     let n_rows = lines.len();
@@ -151,5 +130,48 @@ pub fn part2() {
         _ => 0,
     };
 
-    println!("Day6 Part 2 answer: {:?}", answer);
+    Some(answer)
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use utils::get_day_lines;
+    static DAY_STR: &str = "day6";
+
+    #[test]
+    fn test_day6_part1_example_input() {
+        let file_path = format!("{}{}", DAY_STR, "_test");
+        let file_lines = get_day_lines(&file_path).unwrap();
+        let actual = part1(file_lines).unwrap();
+        let expected = 4277556;
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn test_day6_part1_full_input() {
+        let file_path = format!("{}", DAY_STR);
+        let file_lines = get_day_lines(&file_path).unwrap();
+        let actual = part1(file_lines).unwrap();
+        let expected = 7644505810277;
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn test_day6_part2_example_input() {
+        let file_path = format!("{}{}", DAY_STR, "_test");
+        let file_lines = get_day_lines(&file_path).unwrap();
+        let actual = part2(file_lines).unwrap();
+        let expected = 3263827;
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn test_day6_part2_full_input() {
+        let file_path = format!("{}", DAY_STR);
+        let file_lines = get_day_lines(&file_path).unwrap();
+        let actual = part2(file_lines).unwrap();
+        let expected = 12841228084455;
+        assert_eq!(expected, actual);
+    }
 }

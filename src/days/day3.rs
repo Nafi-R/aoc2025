@@ -1,12 +1,4 @@
-use utils::get_day_lines;
-
-pub fn part1() -> Option<i64> {
-    let file_lines = match get_day_lines("day3") {
-        Some(file_lines) => file_lines,
-        None => {
-            return None;
-        }
-    };
+pub fn part1(file_lines: impl Iterator<Item = String>) -> Option<i64> {
     let mut answer: i64 = 0;
     for line in file_lines {
         match get_largest_subsequence(&line, 2) {
@@ -20,17 +12,10 @@ pub fn part1() -> Option<i64> {
         }
     }
 
-    println!("Day3 Part 1 answer: {:?}", answer);
     Some(answer)
 }
 
-pub fn part2() -> Option<i64> {
-    let file_lines = match get_day_lines("day3") {
-        Some(file_lines) => file_lines,
-        None => {
-            return None;
-        }
-    };
+pub fn part2(file_lines: impl Iterator<Item = String>) -> Option<i64> {
     let mut answer: i64 = 0;
 
     for line in file_lines {
@@ -45,7 +30,6 @@ pub fn part2() -> Option<i64> {
         }
     }
 
-    println!("Day3 Part 2 answer: {:?}", answer);
     Some(answer)
 }
 
@@ -84,4 +68,47 @@ fn get_largest_subsequence(s: &str, k: i32) -> Option<i64> {
     }
 
     Some(answer)
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use utils::get_day_lines;
+    static DAY_STR: &str = "day3";
+
+    #[test]
+    fn test_day3_part1_example_input() {
+        let file_path = format!("{}{}", DAY_STR, "_test");
+        let file_lines = get_day_lines(&file_path).unwrap();
+        let actual = part1(file_lines).unwrap();
+        let expected = 357;
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn test_day3_part1_full_input() {
+        let file_path = format!("{}", DAY_STR);
+        let file_lines = get_day_lines(&file_path).unwrap();
+        let actual = part1(file_lines).unwrap();
+        let expected = 17179;
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn test_day3_part2_example_input() {
+        let file_path = format!("{}{}", DAY_STR, "_test");
+        let file_lines = get_day_lines(&file_path).unwrap();
+        let actual = part2(file_lines).unwrap();
+        let expected = 3121910778619;
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn test_day3_part2_full_input() {
+        let file_path = format!("{}", DAY_STR);
+        let file_lines = get_day_lines(&file_path).unwrap();
+        let actual = part2(file_lines).unwrap();
+        let expected = 170025781683941;
+        assert_eq!(expected, actual);
+    }
 }

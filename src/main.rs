@@ -1,3 +1,4 @@
+use crate::days::CalculateSolution;
 use std::env;
 use std::process;
 
@@ -12,31 +13,61 @@ fn main() {
     }
 
     let day_name: &str = &args[1];
+    let mut day = days::Day::default();
     match day_name {
         "day1" => {
-            days::day1::part1();
-            days::day1::part2();
+            day.set_file("day1");
+            day.set_day(days::DayNumber::Day1);
         }
         "day2" => {
-            days::day2::part1();
-            days::day2::part2();
+            day.set_file("day2");
+            day.set_day(days::DayNumber::Day2);
         }
         "day3" => {
-            days::day3::part1();
-            days::day3::part2();
+            day.set_file("day3");
+            day.set_day(days::DayNumber::Day3);
         }
         "day4" => {
-            days::day4::part1();
-            days::day4::part2();
+            day.set_file("day4");
+            day.set_day(days::DayNumber::Day4);
         }
         "day5" => {
-            days::day5::part1();
-            days::day5::part2();
+            day.set_file("day5");
+            day.set_day(days::DayNumber::Day5);
         }
         "day6" => {
-            days::day6::part1();
-            days::day6::part2();
+            day.set_file("day6");
+            day.set_day(days::DayNumber::Day6);
         }
-        _ => eprintln!("{:?} has not been implemented", day_name),
+        "day7" => {
+            day.set_file("day7");
+            day.set_day(days::DayNumber::Day7);
+        }
+        "day8" => {
+            day.set_file("day8");
+            day.set_day(days::DayNumber::Day8);
+        }
+        "day9" => {
+            day.set_file("day9");
+            day.set_day(days::DayNumber::Day9);
+        }
+        "day10" => {
+            day.set_file("day10");
+            day.set_day(days::DayNumber::Day10);
+        }
+        "day11" => {
+            day.set_file("day11");
+            day.set_day(days::DayNumber::Day11);
+        }
+        "day12" => {
+            day.set_file("day12");
+            day.set_day(days::DayNumber::Day12);
+        }
+        _ => {
+            eprintln!("{:?} has not been implemented", day_name);
+            return;
+        }
     }
+    day.part1();
+    day.part2();
 }

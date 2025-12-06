@@ -1,12 +1,4 @@
-use utils::get_day_lines;
-
-pub fn part1() -> Option<i64> {
-    let file_lines = match get_day_lines("day1") {
-        Some(file_lines) => file_lines,
-        None => {
-            return None;
-        }
-    };
+pub fn part1(file_lines: impl Iterator<Item = String>) -> Option<i64> {
     let mut pos = 50;
     let mut zero_counter = 0;
     for line in file_lines {
@@ -25,13 +17,7 @@ pub fn part1() -> Option<i64> {
     Some(zero_counter)
 }
 
-pub fn part2() -> Option<i64> {
-    let file_lines = match get_day_lines("day1") {
-        Some(file_lines) => file_lines,
-        None => {
-            return None;
-        }
-    };
+pub fn part2(file_lines: impl Iterator<Item = String>) -> Option<i64> {
     let mut curr_pos: i64 = 50;
     let mut zero_counter: i64 = 0;
     for line in file_lines {
@@ -66,20 +52,43 @@ pub fn part2() -> Option<i64> {
 
 #[cfg(test)]
 mod test {
-    use super::part1;
-    use super::part2;
+    use super::*;
+    use utils::get_day_lines;
+    static DAY_STR: &str = "day1";
 
     #[test]
-    fn test_day1_part1() {
-        let expected = 1043;
-        let result = part1().expect("Day 1 Part 1 could not read file");
-        assert_eq!(expected, result);
+    fn test_day1_part1_example_input() {
+        let file_path = format!("{}{}", DAY_STR, "_test");
+        let file_lines = get_day_lines(&file_path).unwrap();
+        let actual = part1(file_lines).unwrap();
+        let expected = 3;
+        assert_eq!(expected, actual);
     }
 
     #[test]
-    fn test_day1_part2() {
+    fn test_day1_part1_full_input() {
+        let file_path = format!("{}", DAY_STR);
+        let file_lines = get_day_lines(&file_path).unwrap();
+        let actual = part1(file_lines).unwrap();
+        let expected = 1043;
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn test_day1_part2_example_input() {
+        let file_path = format!("{}{}", DAY_STR, "_test");
+        let file_lines = get_day_lines(&file_path).unwrap();
+        let actual = part2(file_lines).unwrap();
+        let expected = 6;
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn test_day1_part2_full_input() {
+        let file_path = format!("{}", DAY_STR);
+        let file_lines = get_day_lines(&file_path).unwrap();
+        let actual = part2(file_lines).unwrap();
         let expected = 5963;
-        let result = part2().expect("Day 1 Part 2 could not read file");
-        assert_eq!(expected, result);
+        assert_eq!(expected, actual);
     }
 }
