@@ -1,18 +1,18 @@
 use utils::get_day_lines;
 
-pub fn part1() {
+pub fn part1() -> Option<i64> {
     let mut file_lines = match get_day_lines("day2") {
         Some(file_lines) => file_lines,
         None => {
-            return;
+            return None;
         }
     };
-    let mut answer: i128 = 0;
+    let mut answer: i64 = 0;
     let line = if let Some(contents) = file_lines.next() {
         contents
     } else {
         eprintln!("No line found in day2.txt");
-        return;
+        return None;
     };
 
     let entries: Vec<&str> = line.split(",").collect();
@@ -30,24 +30,24 @@ pub fn part1() {
                         "Error parsing line {}: '{}'. At least one value not a number",
                         i, entry
                     );
-                    return;
+                    return None;
                 }
             }
         } else {
             eprintln!("Error parsing line {} : '{}'. No '-' given.", i, entry);
-            return;
+            return None;
         };
 
         for num in start..(end + 1) {
             let num_str: String = format!("{}", num);
             let mid_point = num_str.len() / 2;
             if &num_str[..mid_point] == &num_str[mid_point..] {
-                answer += i128::from(num);
+                answer += num;
             }
         }
     }
 
-    println!("Day2 Part 1 answer: {:?}", answer);
+    Some(answer)
 }
 
 pub fn part2() {

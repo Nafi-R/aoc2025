@@ -1,17 +1,17 @@
 use utils::get_day_lines;
 
-pub fn part1() {
+pub fn part1() -> Option<i64> {
     let file_lines = match get_day_lines("day1") {
         Some(file_lines) => file_lines,
         None => {
-            return;
+            return None;
         }
     };
     let mut pos = 50;
     let mut zero_counter = 0;
     for line in file_lines {
         let is_positive: bool = &line[..1] == "R";
-        if let Ok(rotation) = &line[1..].parse::<i32>() {
+        if let Ok(rotation) = &line[1..].parse::<i64>() {
             if is_positive {
                 pos = (pos + rotation) % 100;
             } else {
@@ -22,14 +22,14 @@ pub fn part1() {
             }
         }
     }
-    println!("Day1 Part 1 answer: {:?}", zero_counter);
+    Some(zero_counter)
 }
 
-pub fn part2() {
+pub fn part2() -> Option<i64> {
     let file_lines = match get_day_lines("day1") {
         Some(file_lines) => file_lines,
         None => {
-            return;
+            return None;
         }
     };
     let mut curr_pos: i64 = 50;
@@ -61,5 +61,25 @@ pub fn part2() {
             }
         }
     }
-    println!("Day1 Part 2 answer: {:?}", zero_counter);
+    Some(zero_counter)
+}
+
+#[cfg(test)]
+mod test {
+    use super::part1;
+    use super::part2;
+
+    #[test]
+    fn test_day1_part1() {
+        let expected = 1043;
+        let result = part1().expect("Day 1 Part 1 could not read file");
+        assert_eq!(expected, result);
+    }
+
+    #[test]
+    fn test_day1_part2() {
+        let expected = 5963;
+        let result = part2().expect("Day 1 Part 2 could not read file");
+        assert_eq!(expected, result);
+    }
 }
