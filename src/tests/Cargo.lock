@@ -3,12 +3,5 @@
 version = 4
 
 [[package]]
-name = "aoc_2025"
-version = "0.1.0"
-dependencies = [
- "utils",
-]
-
-[[package]]
-name = "utils"
+name = "tests"
 version = "0.1.0"

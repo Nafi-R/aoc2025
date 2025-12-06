@@ -1,17 +1,9 @@
-use utils::get_day_lines;
-
-pub fn part1() {
-    let file_lines = match get_day_lines("day1") {
-        Some(file_lines) => file_lines,
-        None => {
-            return;
-        }
-    };
+pub fn part1(file_lines: impl Iterator<Item = String>) -> Option<i64> {
     let mut pos = 50;
     let mut zero_counter = 0;
     for line in file_lines {
         let is_positive: bool = &line[..1] == "R";
-        if let Ok(rotation) = &line[1..].parse::<i32>() {
+        if let Ok(rotation) = &line[1..].parse::<i64>() {
             if is_positive {
                 pos = (pos + rotation) % 100;
             } else {
@@ -22,16 +14,10 @@ pub fn part1() {
             }
         }
     }
-    println!("Day1 Part 1 answer: {:?}", zero_counter);
+    Some(zero_counter)
 }
 
-pub fn part2() {
-    let file_lines = match get_day_lines("day1") {
-        Some(file_lines) => file_lines,
-        None => {
-            return;
-        }
-    };
+pub fn part2(file_lines: impl Iterator<Item = String>) -> Option<i64> {
     let mut curr_pos: i64 = 50;
     let mut zero_counter: i64 = 0;
     for line in file_lines {
@@ -61,5 +47,48 @@ pub fn part2() {
             }
         }
     }
-    println!("Day1 Part 2 answer: {:?}", zero_counter);
+    Some(zero_counter)
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use utils::get_day_lines;
+    static DAY_STR: &str = "day1";
+
+    #[test]
+    fn test_day1_part1_example_input() {
+        let file_path = format!("{}{}", DAY_STR, "_test");
+        let file_lines = get_day_lines(&file_path).unwrap();
+        let actual = part1(file_lines).unwrap();
+        let expected = 3;
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn test_day1_part1_full_input() {
+        let file_path = format!("{}", DAY_STR);
+        let file_lines = get_day_lines(&file_path).unwrap();
+        let actual = part1(file_lines).unwrap();
+        let expected = 1043;
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn test_day1_part2_example_input() {
+        let file_path = format!("{}{}", DAY_STR, "_test");
+        let file_lines = get_day_lines(&file_path).unwrap();
+        let actual = part2(file_lines).unwrap();
+        let expected = 6;
+        assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn test_day1_part2_full_input() {
+        let file_path = format!("{}", DAY_STR);
+        let file_lines = get_day_lines(&file_path).unwrap();
+        let actual = part2(file_lines).unwrap();
+        let expected = 5963;
+        assert_eq!(expected, actual);
+    }
 }
