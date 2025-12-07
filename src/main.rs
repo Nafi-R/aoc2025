@@ -68,6 +68,18 @@ fn main() {
             return;
         }
     }
+
+    match args.get(2) {
+        Some(arg) => match arg.as_str() {
+            "test" => {
+                let test_file = format!("{}{}", day.get_file(), "_test");
+                day.set_file(&test_file);
+            }
+            _ => (),
+        },
+        None => (),
+    };
+
     day.part1();
     day.part2();
 }

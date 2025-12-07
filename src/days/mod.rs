@@ -52,6 +52,10 @@ impl Day {
     pub fn set_day(&mut self, day_number: DayNumber) {
         self.day_num = day_number;
     }
+
+    pub fn get_file(&self) -> &str {
+        return &self.file_name;
+    }
 }
 
 impl CalculateSolution for Day {
@@ -84,7 +88,7 @@ impl CalculateSolution for Day {
             }
         };
 
-        println!("Solution to {:?} Part 1: {}", self.day_num, answer);
+        println!("{:?} => Part 1: {}", self.day_num, answer);
     }
 
     fn part2(&self) {
@@ -116,6 +120,6 @@ impl CalculateSolution for Day {
             }
         };
 
-        println!("Solution to {:?} Part 2: {}", self.day_num, answer);
+        println!("{:?} => Part 2: {}", self.day_num, answer);
     }
 }
