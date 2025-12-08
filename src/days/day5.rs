@@ -101,7 +101,6 @@ pub fn part2(file_lines: impl Iterator<Item = String>) -> Option<i64> {
             }
         }
     }
-    println!("{}", answer);
     Some(answer)
 }
 

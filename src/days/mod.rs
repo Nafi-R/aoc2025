@@ -1,4 +1,6 @@
+use std::time::Instant;
 use utils::get_day_lines;
+
 pub mod day1;
 pub mod day10;
 pub mod day11;
@@ -64,6 +66,7 @@ impl CalculateSolution for Day {
             Some(input) => input,
             None => panic!("Could not read file: {}", self.file_name),
         };
+        let now = Instant::now();
 
         let result: Option<i64> = match self.day_num {
             DayNumber::Day1 => day1::part1(input),
@@ -79,6 +82,7 @@ impl CalculateSolution for Day {
             DayNumber::Day11 => day11::part1(input),
             DayNumber::Day12 => day12::part1(input),
         };
+        let elapsed = now.elapsed().as_millis();
 
         let answer = match result {
             Some(result) => result,
@@ -88,7 +92,7 @@ impl CalculateSolution for Day {
             }
         };
 
-        println!("{:?} => Part 1: {}", self.day_num, answer);
+        println!("{:?} => Part 1 ({} ms): {}", self.day_num, elapsed, answer);
     }
 
     fn part2(&self) {
@@ -97,6 +101,7 @@ impl CalculateSolution for Day {
             None => panic!("Could not read file: {}", self.file_name),
         };
 
+        let now = Instant::now();
         let result: Option<i64> = match self.day_num {
             DayNumber::Day1 => day1::part2(input),
             DayNumber::Day2 => day2::part2(input),
@@ -111,7 +116,7 @@ impl CalculateSolution for Day {
             DayNumber::Day11 => day11::part2(input),
             DayNumber::Day12 => day12::part2(input),
         };
-
+        let elapsed = now.elapsed().as_millis();
         let answer = match result {
             Some(result) => result,
             None => {
@@ -120,6 +125,6 @@ impl CalculateSolution for Day {
             }
         };
 
-        println!("{:?} => Part 2: {}", self.day_num, answer);
+        println!("{:?} => Part 2 ({} ms): {}", self.day_num, elapsed, answer);
     }
 }
